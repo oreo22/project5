@@ -59,6 +59,7 @@ public class CritterGUI extends Application{
 
 	
 	public void start(Stage primaryStage) {
+		
 		System.setProperty("glass.accessible.force", "false");
 		primaryStage.setTitle("Critter Simulation");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -76,6 +77,8 @@ public class CritterGUI extends Application{
 		statsCanvas.setHeight(40);
 		statsCanvas.getGraphicsContext2D().setTextAlign(TextAlignment.CENTER);	
 		double size = (width/100); //Font Size
+		
+		statsCanvas.setStyle("-fx-font: " + size + " arial;");
 //--------------Main Control Panel--------	
 		FlowPane controls= new FlowPane(Orientation.HORIZONTAL,width/86,0);
 		//---------Lists for the Dropdown Boxes------
@@ -336,21 +339,21 @@ public class CritterGUI extends Application{
 	    	   	controls.setDisable(true);
 	    	   	animeCluster.setDisable(true);
 	       		critterBox.setDisable(false);
+	       		
 	       		critterBox.setItems(crittersOptions);
 	       		critterBox.getSelectionModel().clearSelection();
 	       		critterBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
 	       			public void handle(ActionEvent number) {
 	       				//controls.setDisable(true);
-	       				statsCritter="project5." + critterBox.getSelectionModel().getSelectedItem();
-	       				try {
-	       					statsPrint.setText(runStatsGraphics());
-							
-						} catch (IllegalArgumentException | SecurityException e) {
-						}
-	       				critterBox.setDisable(true);
-						animeCluster.setDisable(false);
-						controls.setDisable(false);
+	       				statsCritter=critterBox.getSelectionModel().getSelectedItem();
+	       				if(statsCritter != null){
+	       					statsCritter = "project5." + statsCritter;
+		       				statsPrint.setText(runStatsGraphics());
+		       				critterBox.setDisable(true);
+							animeCluster.setDisable(false);
+							controls.setDisable(false);
+	       				}
 	       			}
 	       		});	       		
 	       }

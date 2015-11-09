@@ -87,7 +87,7 @@ public class CritterGUI extends Application{
         	        "Craig", "Algae","Student","Margret","Cassidy", "Jeho","AlgaephobicCritter", "TragicCritter" );
         ObservableList<String> makeOpts = //custom is from the editable field
         	    FXCollections.observableArrayList(
-        	        "1", "2", "5", "25", "50", "100" );
+        	        "1", "5", "10", "25", "50", "100" );
         ObservableList<String> stepOpts = //custom is from the editable field
         		//are we allowed to put 10 here?
         	    FXCollections.observableArrayList(
@@ -146,7 +146,7 @@ public class CritterGUI extends Application{
        speed.setPrefWidth(size*10);
        speed.setMax(100);
        speed.setMin(2);
-       speed.setValue(5);
+      // speed.setValue(5);
        speed.setMinorTickCount(0);
        speed.setMajorTickUnit(25);
        speed.setSnapToTicks(true);
@@ -241,7 +241,7 @@ public class CritterGUI extends Application{
 	       		critterBox.getSelectionModel().clearSelection();
 	       		critterBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
-	       			public void handle(ActionEvent number) {
+	       			public void handle(ActionEvent q) {
 	       				String critterChoosen="project5." + critterBox.getSelectionModel().getSelectedItem();
 	    	       		numberBox.setDisable(false);
 	    	       		numberBox.setItems(makeOpts);
@@ -249,9 +249,8 @@ public class CritterGUI extends Application{
 	    	    		numberBox.getSelectionModel().clearSelection();
 	    	       		numberBox.setOnAction(new EventHandler<ActionEvent>() {
 	    	       			@Override
-	    	       			public void handle(ActionEvent number) {
-	    	       				String numberChosen = null;
-	    	       				 numberChosen= numberBox.getSelectionModel().getSelectedItem();
+	    	       			public void handle(ActionEvent v) {
+	    	       				String numberChosen= numberBox.getSelectionModel().getSelectedItem();
 	    	       				if(numberChosen != null){
 	    	       					Integer stepnum=Integer.parseInt(numberChosen);	
 		    	       				for(int x=0; x<stepnum; x++){
@@ -265,13 +264,11 @@ public class CritterGUI extends Application{
 		    	       				
 		    	       				
 		    	       				statsPrint.setText(runStatsGraphics());
+		    	       				//numberBox.setValue(null);
 		    	       				numberBox.setDisable(true);
 		    	       				critterBox.setDisable(true);
 		    	       				animeCluster.setDisable(false);
 		    	       				controls.setDisable(false);
-		    	       				
-		    	       				numberBox.setValue(null);
-		    	       				critterBox.setValue(null);
 		    	       			}
 	    	       			}
 	    	       		});	
@@ -293,18 +290,18 @@ public class CritterGUI extends Application{
 	    		System.out.println(numberBox.getSelectionModel().getSelectedItem());
 	       		numberBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
-	       			public void handle(ActionEvent number) {
+	       			public void handle(ActionEvent l) {
 	       				String numberChosen= numberBox.getSelectionModel().getSelectedItem();
 	       				if(numberChosen != null){
 	       					Integer stepnum=Integer.parseInt(numberChosen);
 	       					CritterWorld.runWorld(stepnum);
 	       					Critter.displayWorld();
+	       					//numberBox.setValue(null);
 	       					statsPrint.setText(runStatsGraphics());
 	       					animeCluster.setDisable(false);
 	       					controls.setDisable(false);
 	       					numberBox.setDisable(true);
 	       					
-	       					numberBox.setValue(null);
 	       				}
 	       			}
 	       		});	       		
@@ -325,18 +322,16 @@ public class CritterGUI extends Application{
 	    		numberBox.getSelectionModel().clearSelection();
 	       		numberBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
-	       			public void handle(ActionEvent number) {
-	       				String numberChosen = null;
-	       				
-	       				 numberChosen= numberBox.getSelectionModel().getSelectedItem();
+	       			public void handle(ActionEvent x) {
+	       				String numberChosen= numberBox.getSelectionModel().getSelectedItem();
 	       				if(numberChosen != null){
 	       					Integer stepnum=Integer.parseInt(numberChosen);
 	       					Critter.setSeed(stepnum);
+	       					//numberBox.setValue(null);
 	       					numberBox.setDisable(true);
 	       					animeCluster.setDisable(false);
 	       					controls.setDisable(false);
 	       					
-	       					numberBox.setValue(null);
 	       				}
 	       			}
 	       		});	       		
@@ -357,7 +352,7 @@ public class CritterGUI extends Application{
 	       		critterBox.getSelectionModel().clearSelection();
 	       		critterBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
-	       			public void handle(ActionEvent number) {
+	       			public void handle(ActionEvent statsnumber) {
 	       				//controls.setDisable(true);
 	       				String previous = statsCritter;
 	       				statsCritter=critterBox.getSelectionModel().getSelectedItem();

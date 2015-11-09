@@ -261,11 +261,17 @@ public class CritterGUI extends Application{
 			    						}
 		    	       				}
 		    	       				Critter.displayWorld();
+		    	       				
+		    	       				
+		    	       				
 		    	       				statsPrint.setText(runStatsGraphics());
 		    	       				numberBox.setDisable(true);
 		    	       				critterBox.setDisable(true);
 		    	       				animeCluster.setDisable(false);
 		    	       				controls.setDisable(false);
+		    	       				
+		    	       				numberBox.setValue(null);
+		    	       				critterBox.setValue(null);
 		    	       			}
 	    	       			}
 	    	       		});	
@@ -284,12 +290,11 @@ public class CritterGUI extends Application{
 	       		//numberBox.getSelectionModel().clearSelection();
 	    		numberBox.setPromptText("Pick/Enter a Number");
 	    		numberBox.getSelectionModel().clearSelection();
+	    		System.out.println(numberBox.getSelectionModel().getSelectedItem());
 	       		numberBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
 	       			public void handle(ActionEvent number) {
-	       				String numberChosen = null;
-	       				
-	       				 numberChosen= numberBox.getSelectionModel().getSelectedItem();
+	       				String numberChosen= numberBox.getSelectionModel().getSelectedItem();
 	       				if(numberChosen != null){
 	       					Integer stepnum=Integer.parseInt(numberChosen);
 	       					CritterWorld.runWorld(stepnum);
@@ -298,6 +303,8 @@ public class CritterGUI extends Application{
 	       					animeCluster.setDisable(false);
 	       					controls.setDisable(false);
 	       					numberBox.setDisable(true);
+	       					
+	       					numberBox.setValue(null);
 	       				}
 	       			}
 	       		});	       		
@@ -328,6 +335,8 @@ public class CritterGUI extends Application{
 	       					numberBox.setDisable(true);
 	       					animeCluster.setDisable(false);
 	       					controls.setDisable(false);
+	       					
+	       					numberBox.setValue(null);
 	       				}
 	       			}
 	       		});	       		

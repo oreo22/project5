@@ -19,8 +19,14 @@ public class Student extends Critter{
 
 	@Override
 	public void doTimeStep() {
-		walk(this.getEnergy()%8);
-		if(this.getEnergy() >100){
+		int roll = Critter.getRandomInt(100);
+		if(this.getEnergy() >= 85){
+			walk(roll%8);
+		}
+		else if(roll>85){
+			walk(0);
+		}
+		if(this.getEnergy() >150){
 			this.reproduce(new Student(), (this.getEnergy()+1)%8);
 		}
 		

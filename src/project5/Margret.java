@@ -19,6 +19,9 @@ public class Margret extends Critter{
 		if( action==0){
 			run(direction);
 		}
+		if(this.getEnergy()>500){
+			this.reproduce(new Margret(), (direction+1)%8);
+		}
 	}
 
 	@Override

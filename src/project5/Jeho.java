@@ -23,14 +23,17 @@ public class Jeho extends Critter{
 
 	@Override
 	public void doTimeStep() {
-		if(getEnergy()<=50){
+		if(this.getEnergy()<=50){
 			this.degree = "bachelors";
 		}
-		else if(getEnergy()<=75){
+		else if(this.getEnergy()<=75){
 			this.degree = "masters";
 		}
-		else if(getEnergy() >= 120){
+		else if(this.getEnergy() >= 120){
 			this.degree = "phd";
+		}
+		if(this.getEnergy() >= 150){
+			reproduce(new Jeho(), Critter.getRandomInt(8));
 		}
 		int action=Critter.getRandomInt(4);
 		int direction=Critter.getRandomInt(8);
@@ -40,17 +43,14 @@ public class Jeho extends Critter{
 		else if (action==1){
 			walk(direction);
 		}
-		else{
-				reproduce(new Jeho(), Critter.getRandomInt(8));
-			
-		}
 		
+				
 	}
 
 	@Override
 	public boolean fight(String oponent) {
 		int roll= Critter.getRandomInt(5);
-		if(oponent.equals("project5.Craig") && degree.equals("phd")){
+		if(oponent.equals("project5.Craig") && degree.equals("phd") && oponent.equals("project5.Jeho")){
 			return true;
 		}
 		else if((oponent.equals("project5.Cassidy") || oponent.equals("project5.Margret")) && (degree.equals("masters") || degree.equals("phd")) ){
@@ -69,6 +69,7 @@ public class Jeho extends Critter{
 			}
 		else if(oponent.equals("project5.Algae")){
 			return true;
+			
 		}
 		else{
 			return false; 

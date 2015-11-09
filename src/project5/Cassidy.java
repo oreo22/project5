@@ -20,12 +20,12 @@ public class Cassidy extends Critter {
 	@Override
 	public void doTimeStep() {
 		hours = (hours+1)%24;
+		System.out.println(hours);
 		walk(hours%8);
 		walk((hours+1)%8);
-		if(hours >= 0 && hours <= 8){ //sleeping hours
+		if(hours >= 0 && hours <= 8 && this.getEnergy() > 150){ //sleeping hours
 			this.reproduce(new Cassidy(), (hours+2)%8);
 		}
-		
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class Cassidy extends Critter {
 		if(oponent.equals("project5.Craig")){
 			return false;
 		}
-		else if((hours >=10 && hours<=14) || (hours >=16 && hours <= 20) || oponent.equals("project5.Algae")){ //smash hours
+		else if((hours >=8 && hours<24) || oponent.equals("project5.Algae")){ //smash hours
 			return true;
 		}
 		return false;

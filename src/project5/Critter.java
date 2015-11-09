@@ -305,8 +305,8 @@ public abstract class Critter{
 	private static void handleEncounters(){
 		Critter.fightPhase = true;
 		for(int y=0; y<Critter.population.size(); y++){
-				for(int x=y+1; x<Critter.population.size(); x++){
-					if(Critter.population.get(y).energy> 0 && Critter.population.get(x).energy > 0 && Critter.population.get(x).x_coord == Critter.population.get(y).x_coord && Critter.population.get(x).y_coord== Critter.population.get(y).y_coord){
+				for(int x=0; x<Critter.population.size(); x++){
+					if(x!=y && Critter.population.get(y).energy> 0 && Critter.population.get(x).energy > 0 && Critter.population.get(x).x_coord == Critter.population.get(y).x_coord && Critter.population.get(x).y_coord== Critter.population.get(y).y_coord){
 						int xStrength = 0;
 						int yStrength = 0;
 						boolean xFight = Critter.population.get(x).fight(Critter.population.get(y).getClass().getName());

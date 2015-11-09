@@ -427,7 +427,7 @@ public class CritterGUI extends Application{
 	public String runStatsGraphics (){
 		//-----Get the correct stats------
 		List<Critter> instances =  new ArrayList<Critter>();
-		String statsOutput= " ";
+		String statsOutput= null;
 		try {
 			System.out.println(statsCritter);
 			instances = Critter.getInstances(statsCritter);

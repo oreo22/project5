@@ -208,9 +208,12 @@ public class CritterGUI extends Application{
        
        //----Adding the runStats screen----
 		Label statsPrint=new Label();
+		statsPrint.setPrefWidth(width*9/50);
+		
 		statsPrint.setWrapText(true);
 		root.getChildren().add(statsPrint);
-		statsPrint.relocate(width * 9/32,height/8);
+		statsPrint.relocate(width * 9/32,height/15);
+		
        
        //----Disable unnecessary elements
        critterBox.setDisable(true);
@@ -424,7 +427,7 @@ public class CritterGUI extends Application{
 	public String runStatsGraphics (){
 		//-----Get the correct stats------
 		List<Critter> instances =  new ArrayList<Critter>();
-		String statsOutput= null;
+		String statsOutput= " ";
 		try {
 			System.out.println(statsCritter);
 			instances = Critter.getInstances(statsCritter);

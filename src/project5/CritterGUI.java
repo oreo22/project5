@@ -338,6 +338,7 @@ public class CritterGUI extends Application{
 	       public void handle(ActionEvent e) {
 	    	   	controls.setDisable(true);
 	    	   	animeCluster.setDisable(true);
+	    	   	numberBox.setDisable(true);
 	       		critterBox.setDisable(false);
 	       		
 	       		critterBox.setItems(crittersOptions);
@@ -346,6 +347,7 @@ public class CritterGUI extends Application{
 	       			@Override
 	       			public void handle(ActionEvent number) {
 	       				//controls.setDisable(true);
+	       				String previous = statsCritter;
 	       				statsCritter=critterBox.getSelectionModel().getSelectedItem();
 	       				if(statsCritter != null){
 	       					statsCritter = "project5." + statsCritter;
@@ -353,6 +355,10 @@ public class CritterGUI extends Application{
 		       				critterBox.setDisable(true);
 							animeCluster.setDisable(false);
 							controls.setDisable(false);
+							numberBox.setDisable(true);
+	       				}
+	       				else{
+	       					statsCritter = previous;
 	       				}
 	       			}
 	       		});	       		
@@ -420,6 +426,7 @@ public class CritterGUI extends Application{
 		List<Critter> instances =  new ArrayList<Critter>();
 		String statsOutput= null;
 		try {
+			System.out.println(statsCritter);
 			instances = Critter.getInstances(statsCritter);
 			Object obj = Class.forName(statsCritter).newInstance();
 			statsOutput = (String) Class.forName(statsCritter).getMethod("runStats", List.class).invoke(obj, Critter.getInstances(statsCritter));

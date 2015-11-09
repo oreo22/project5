@@ -69,7 +69,7 @@ public class CritterGUI extends Application{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
-	/*	double width = 1000;
+/*		double width = 1000;
 		double height = 1000;*/
 		Group root = new Group();
 
@@ -84,7 +84,7 @@ public class CritterGUI extends Application{
 		statsCanvas.getGraphicsContext2D().setTextAlign(TextAlignment.CENTER);
 		statsCanvas.getGraphicsContext2D().setTextBaseline(VPos.CENTER);
 			
-
+		double size = (width/100); //Font Size
 //--------------Main Control Panel--------	
 		FlowPane controls= new FlowPane(Orientation.HORIZONTAL,width/86,0);
 		//---------Lists for the Dropdown Boxes------
@@ -102,17 +102,19 @@ public class CritterGUI extends Application{
         final ComboBox<String> critterBox = new ComboBox<String>(crittersOptions);
         critterBox.setPromptText("Critter Type");
         critterBox.setVisibleRowCount(5);
+        critterBox.setStyle("-fx-font: " + size*2/3 + " arial;");
       
         
         final ComboBox<String> numberBox = new ComboBox<String>();
 		numberBox.setPromptText("Number Selection");
 		numberBox.setEditable(true);
 		numberBox.setVisibleRowCount(5);
+		numberBox.setStyle("-fx-font: " + size*2/3 + " arial;");
 		
 		
 		//-------Buttons-------
         //------Make Button---------\
-		double size = (width/100);
+		
 		Button makebtn = new Button("Make"); //gotta change this to make it scalable
 		makebtn.setStyle("-fx-font: " + size + " arial;");
 		controls.getChildren().add(makebtn);
@@ -136,13 +138,18 @@ public class CritterGUI extends Application{
        quitbtn.setTextFill(Color.RED);
      //  quitbtn.setAlignment(Pos.BOTTOM_RIGHT);
        quitbtn.relocate((width-(width/16))/2, 0);
+       quitbtn.setStyle("-fx-font: " + size + " arial;");
        
        //------Animation Cluster----
        FlowPane animeCluster=new FlowPane(Orientation.HORIZONTAL, 10,0);
-       animeCluster.setAlignment(Pos.BOTTOM_CENTER);
+       //animeCluster.setAlignment(Pos.BOTTOM_CENTER);
        Button stopbtn = new Button("o");
+       stopbtn.setStyle("-fx-font: " + size + " arial;");
        Button playbtn = new Button(">");
+       playbtn.setStyle("-fx-font: " + size + " arial;");
        Slider speed = new Slider(2,100,5);
+       speed.setStyle("-fx-font: " + size + " arial;");
+       speed.setPrefWidth(size*10);
        speed.setMax(100);
        speed.setMin(2);
        speed.setValue(5);
@@ -189,7 +196,7 @@ public class CritterGUI extends Application{
      //-------Setting up the display----
        //-------Layout of the buttons----- /Diego!/MAKE THIS SCALABLE
        controls.relocate(width * 9/32,height/5);
-       animeCluster.relocate(width/4.5,height/3);
+       animeCluster.relocate(width*9/32,height/3);
        critterBox.relocate(width * 17/64,height/4);
        numberBox.relocate(width*117/310,height/4);
        

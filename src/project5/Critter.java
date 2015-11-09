@@ -365,6 +365,7 @@ public abstract class Critter{
 		statsgc.setFill(Color.CADETBLUE);
 		statsgc.fillText("WHERE ARE MY STATS?", Math.round(CritterGUI.statsCanvas.getWidth()  / 2), 
 	            Math.round(CritterGUI.statsCanvas.getHeight() / 2)); //FIX LATER
+		
 		for(int n=0; n<population.size(); n++){
 			Color color = population.get(n).viewFillColor();
 			Color outLine = population.get(n).viewOutlineColor();

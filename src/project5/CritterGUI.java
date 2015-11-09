@@ -87,7 +87,7 @@ public class CritterGUI extends Application{
         	        "Craig", "Algae","Student","Margret","Cassidy", "Jeho","AlgaephobicCritter", "TragicCritter" );
         ObservableList<String> makeOpts = //custom is from the editable field
         	    FXCollections.observableArrayList(
-        	        "1", "2", "5", "25", "50", "100" );
+        	        "1", "5", "10", "25", "50", "100" );
         ObservableList<String> stepOpts = //custom is from the editable field
         		//are we allowed to put 10 here?
         	    FXCollections.observableArrayList(
@@ -146,7 +146,7 @@ public class CritterGUI extends Application{
        speed.setPrefWidth(size*10);
        speed.setMax(100);
        speed.setMin(2);
-       speed.setValue(5);
+      // speed.setValue(5);
        speed.setMinorTickCount(0);
        speed.setMajorTickUnit(25);
        speed.setSnapToTicks(true);
@@ -261,6 +261,7 @@ public class CritterGUI extends Application{
 		    	       				}
 		    	       				Critter.displayWorld();
 		    	       				statsPrint.setText(runStatsGraphics());
+		    	       				//numberBox.setValue(null);
 		    	       				numberBox.setDisable(true);
 		    	       				critterBox.setDisable(true);
 		    	       				animeCluster.setDisable(false);
@@ -291,6 +292,7 @@ public class CritterGUI extends Application{
 	       					Integer stepnum=Integer.parseInt(numberChosen);
 	       					CritterWorld.runWorld(stepnum);
 	       					Critter.displayWorld();
+	       					//numberBox.setValue(null);
 	       					statsPrint.setText(runStatsGraphics());
 	       					animeCluster.setDisable(false);
 	       					controls.setDisable(false);
@@ -320,6 +322,7 @@ public class CritterGUI extends Application{
 	       				if(numberChosen != null){
 	       					Integer stepnum=Integer.parseInt(numberChosen);
 	       					Critter.setSeed(stepnum);
+	       					//numberBox.setValue(null);
 	       					numberBox.setDisable(true);
 	       					animeCluster.setDisable(false);
 	       					controls.setDisable(false);

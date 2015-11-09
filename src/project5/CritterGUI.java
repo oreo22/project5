@@ -429,7 +429,6 @@ public class CritterGUI extends Application{
 		List<Critter> instances =  new ArrayList<Critter>();
 		String statsOutput= null;
 		try {
-			System.out.println(statsCritter);
 			instances = Critter.getInstances(statsCritter);
 			Object obj = Class.forName(statsCritter).newInstance();
 			statsOutput = (String) Class.forName(statsCritter).getMethod("runStats", List.class).invoke(obj, Critter.getInstances(statsCritter));

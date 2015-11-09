@@ -4,6 +4,7 @@ package project5;
 	import java.awt.Dimension;
 	import java.awt.Toolkit;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.animation.AnimationTimer;
@@ -52,17 +53,11 @@ import javafx.util.StringConverter;
 public class CritterGUI extends Application{
 	public static Canvas canvas;
 	public static Canvas statsCanvas;
-/*	
-        stackPane.setPadding(new Insets(10,10,10,10));
-        StackPane.setAlignment(canvas, Pos.CENTER);
-        
-		primaryStage.setScene(s);
-		
-		primaryStage.setWidth(width/2);
-		primaryStage.setHeight(height/2);
-		primaryStage.setResizable(false);
-		primaryStage.centerOnScreen();
-		primaryStage.show();*/
+	
+	//-----DEFAULT STATS------
+	String statsCritter="project5.Craig";
+
+	
 	public void start(Stage primaryStage) {
 		System.setProperty("glass.accessible.force", "false");
 		primaryStage.setTitle("Critter Simulation");
@@ -72,18 +67,14 @@ public class CritterGUI extends Application{
 /*		double width = 1000;
 		double height = 1000;*/
 		Group root = new Group();
-
 		//------Grid of Critters-------
 		StackPane stackPane = new StackPane();
-		
 		Scene s = new Scene(root, width/2, height/2, Color.WHITE);
 		canvas.setWidth(width/2);
 		canvas.setHeight((height-height/64)/2);
 		statsCanvas.setWidth(100);
 		statsCanvas.setHeight(40);
-		statsCanvas.getGraphicsContext2D().setTextAlign(TextAlignment.CENTER);
-		statsCanvas.getGraphicsContext2D().setTextBaseline(VPos.CENTER);
-			
+		statsCanvas.getGraphicsContext2D().setTextAlign(TextAlignment.CENTER);	
 		double size = (width/100); //Font Size
 //--------------Main Control Panel--------	
 		FlowPane controls= new FlowPane(Orientation.HORIZONTAL,width/86,0);
@@ -112,9 +103,9 @@ public class CritterGUI extends Application{
 		numberBox.setStyle("-fx-font: " + size*2/3 + " arial;");
 		
 		
-		//-------Buttons-------
-        //------Make Button---------\
-		
+//-------Buttons-------
+
+        //------Make Button---------
 		Button makebtn = new Button("Make"); //gotta change this to make it scalable
 		makebtn.setStyle("-fx-font: " + size + " arial;");
 		controls.getChildren().add(makebtn);
@@ -213,8 +204,10 @@ public class CritterGUI extends Application{
        stackPane.getChildren().add(canvas);
        
        //----Adding the runStats screen----
-       statsCanvas.relocate(width * 9/32,height/8);
-       root.getChildren().add(statsCanvas);
+		Label statsPrint=new Label();
+		statsPrint.setWrapText(true);
+		root.getChildren().add(statsPrint);
+		statsPrint.relocate(width * 9/32,height/8);
        
        //----Disable unnecessary elements
        critterBox.setDisable(true);
@@ -227,6 +220,7 @@ public class CritterGUI extends Application{
 		primaryStage.setResizable(false);
 		primaryStage.centerOnScreen();
 		Critter.displayWorld();
+		statsPrint.setText(runStatsGraphics());
 		primaryStage.show();
        
        
@@ -261,6 +255,7 @@ public class CritterGUI extends Application{
 			    						}
 		    	       				}
 		    	       				Critter.displayWorld();
+		    	       				statsPrint.setText(runStatsGraphics());
 		    	       				numberBox.setDisable(true);
 		    	       				critterBox.setDisable(true);
 		    	       				animeCluster.setDisable(false);
@@ -293,6 +288,7 @@ public class CritterGUI extends Application{
 	       					Integer stepnum=Integer.parseInt(numberChosen);
 	       					CritterWorld.runWorld(stepnum);
 	       					Critter.displayWorld();
+	       					statsPrint.setText(runStatsGraphics());
 	       					animeCluster.setDisable(false);
 	       					controls.setDisable(false);
 	       					numberBox.setDisable(true);
@@ -345,19 +341,16 @@ public class CritterGUI extends Application{
 	       		critterBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
 	       			public void handle(ActionEvent number) {
-	       				controls.setDisable(true);
-	       				String critterChoosen="project5." + critterBox.getSelectionModel().getSelectedItem();
-						try {
-							Object obj = Class.forName(critterChoosen).newInstance();
-							Class.forName(critterChoosen).getMethod("runStats", List.class).invoke(obj, Critter.getInstances(critterChoosen));
-							controls.setDisable(false);
-							animeCluster.setDisable(false);
-							critterBox.setDisable(true);
-						} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | 
-								IllegalArgumentException | InvocationTargetException | NoSuchMethodException | 
-								SecurityException | InvalidCritterException e) {
+	       				//controls.setDisable(true);
+	       				statsCritter="project5." + critterBox.getSelectionModel().getSelectedItem();
+	       				try {
+	       					statsPrint.setText(runStatsGraphics());
+							
+						} catch (IllegalArgumentException | SecurityException e) {
 						}
-						
+	       				critterBox.setDisable(true);
+						animeCluster.setDisable(false);
+						controls.setDisable(false);
 	       			}
 	       		});	       		
 	       }
@@ -374,10 +367,10 @@ public class CritterGUI extends Application{
 	            	int animationTime = (int)speedValue(speed.getValue());
 	            		
 	            	//Keep running until stop button is pressed//
-	            		
 	            	Timeline timeline = new Timeline(
 	                        new KeyFrame(Duration.millis(250), ae -> CritterWorld.runWorld(animationTime)),
-	                        new KeyFrame(Duration.millis(250), ae -> Critter.displayWorld())
+	                        new KeyFrame(Duration.millis(250), ae -> Critter.displayWorld()),
+	                        new KeyFrame(Duration.millis(250), ae -> statsPrint.setText(runStatsGraphics()))
 	                    );
 	                    timeline.setAutoReverse(true);
 	                    timeline.setCycleCount(Timeline.INDEFINITE);
@@ -418,5 +411,22 @@ public class CritterGUI extends Application{
         else if (n <= 64 && n > 48) return 20.0;
         else if (n <= 80 && n > 64) return 50.0;
         else { return 100.0;}
+	}
+	public String runStatsGraphics (){
+		//-----Get the correct stats------
+		List<Critter> instances =  new ArrayList<Critter>();
+		String statsOutput= null;
+		try {
+			instances = Critter.getInstances(statsCritter);
+			Object obj = Class.forName(statsCritter).newInstance();
+			statsOutput = (String) Class.forName(statsCritter).getMethod("runStats", List.class).invoke(obj, Critter.getInstances(statsCritter));
+			
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | 
+				IllegalArgumentException | InvocationTargetException | NoSuchMethodException | 
+				SecurityException | InvalidCritterException e) {
+		}
+		
+		return statsOutput;
+		
 	}
 }

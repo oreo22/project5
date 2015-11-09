@@ -354,7 +354,7 @@ public abstract class Critter{
 		GraphicsContext statsgc = CritterGUI.statsCanvas.getGraphicsContext2D();
 		statsgc.setFill(Color.CADETBLUE);
 		
-		statsgc.fillText("HELLO WORLD", Math.round(CritterGUI.statsCanvas.getWidth()  / 2), 
+		statsgc.fillText("WHERE ARE MY STATS?", Math.round(CritterGUI.statsCanvas.getWidth()  / 2), 
 	            Math.round(CritterGUI.statsCanvas.getHeight() / 2)); //FIX LATER
 		gc.clearRect(0, 0, CritterGUI.canvas.getWidth(), CritterGUI.canvas.getHeight());
 		gc.setFill(Color.BLACK);

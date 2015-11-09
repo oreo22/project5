@@ -241,7 +241,7 @@ public class CritterGUI extends Application{
 	       		critterBox.getSelectionModel().clearSelection();
 	       		critterBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
-	       			public void handle(ActionEvent number) {
+	       			public void handle(ActionEvent q) {
 	       				String critterChoosen="project5." + critterBox.getSelectionModel().getSelectedItem();
 	    	       		numberBox.setDisable(false);
 	    	       		numberBox.setItems(makeOpts);
@@ -249,9 +249,8 @@ public class CritterGUI extends Application{
 	    	    		numberBox.getSelectionModel().clearSelection();
 	    	       		numberBox.setOnAction(new EventHandler<ActionEvent>() {
 	    	       			@Override
-	    	       			public void handle(ActionEvent number) {
-	    	       				String numberChosen = null;
-	    	       				 numberChosen= numberBox.getSelectionModel().getSelectedItem();
+	    	       			public void handle(ActionEvent v) {
+	    	       				String numberChosen= numberBox.getSelectionModel().getSelectedItem();
 	    	       				if(numberChosen != null){
 	    	       					Integer stepnum=Integer.parseInt(numberChosen);	
 		    	       				for(int x=0; x<stepnum; x++){
@@ -286,10 +285,8 @@ public class CritterGUI extends Application{
 	    		numberBox.getSelectionModel().clearSelection();
 	       		numberBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
-	       			public void handle(ActionEvent number) {
-	       				String numberChosen = null;
-	       				
-	       				 numberChosen= numberBox.getSelectionModel().getSelectedItem();
+	       			public void handle(ActionEvent l) {
+	       				String numberChosen= numberBox.getSelectionModel().getSelectedItem();
 	       				if(numberChosen != null){
 	       					Integer stepnum=Integer.parseInt(numberChosen);
 	       					CritterWorld.runWorld(stepnum);
@@ -318,10 +315,8 @@ public class CritterGUI extends Application{
 	    		numberBox.getSelectionModel().clearSelection();
 	       		numberBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
-	       			public void handle(ActionEvent number) {
-	       				String numberChosen = null;
-	       				
-	       				 numberChosen= numberBox.getSelectionModel().getSelectedItem();
+	       			public void handle(ActionEvent x) {
+	       				String numberChosen= numberBox.getSelectionModel().getSelectedItem();
 	       				if(numberChosen != null){
 	       					Integer stepnum=Integer.parseInt(numberChosen);
 	       					Critter.setSeed(stepnum);
@@ -348,7 +343,7 @@ public class CritterGUI extends Application{
 	       		critterBox.getSelectionModel().clearSelection();
 	       		critterBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
-	       			public void handle(ActionEvent number) {
+	       			public void handle(ActionEvent statsnumber) {
 	       				//controls.setDisable(true);
 	       				String previous = statsCritter;
 	       				statsCritter=critterBox.getSelectionModel().getSelectedItem();

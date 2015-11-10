@@ -105,6 +105,12 @@ public class CritterGUI extends Application{
 		numberBox.setVisibleRowCount(5);
 		numberBox.setStyle("-fx-font: " + size*2/3 + " arial;");
 		
+        final ComboBox<String> stepnumBox = new ComboBox<String>();
+        stepnumBox.setPromptText("Number Selection");
+        stepnumBox.setEditable(true);
+        stepnumBox.setVisibleRowCount(3);
+        stepnumBox.setStyle("-fx-font: " + size*2/3 + " arial;");
+		
 		
 //-------Buttons-------
 
@@ -193,6 +199,7 @@ public class CritterGUI extends Application{
        animeCluster.relocate(width*9/32,height/3);
        critterBox.relocate(width * 17/64,height/4);
        numberBox.relocate(width*117/310,height/4);
+       stepnumBox.relocate(width*117/310,height/(3.5));
        
        //----adding the controls
        root.getChildren().add(stackPane);
@@ -201,6 +208,7 @@ public class CritterGUI extends Application{
        root.getChildren().add(quitbtn);
        root.getChildren().add(critterBox);
        root.getChildren().add(numberBox);
+       root.getChildren().add(stepnumBox);
        //----Adding the grid
        stackPane.setPadding(new Insets(0,0,0,width/(width*2)));
        StackPane.setAlignment(canvas, Pos.CENTER_LEFT);
@@ -218,6 +226,7 @@ public class CritterGUI extends Application{
        //----Disable unnecessary elements
        critterBox.setDisable(true);
        numberBox.setDisable(true);
+       stepnumBox.setDisable(true);
        
        //----ShowTime--------
 		primaryStage.setScene(s);
@@ -242,7 +251,7 @@ public class CritterGUI extends Application{
 	       		critterBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
 	       			public void handle(ActionEvent q) {
-	       				String critterChoosen="project5." + critterBox.getSelectionModel().getSelectedItem();
+	       			String critterChoosen="project5." + critterBox.getSelectionModel().getSelectedItem();
 	    	       		numberBox.setDisable(false);
 	    	       		numberBox.setItems(makeOpts);
 	    	    		numberBox.setPromptText("Pick/Enter a Number");
@@ -273,7 +282,7 @@ public class CritterGUI extends Application{
 	    	       			}
 	    	       		});	
 	       			}
-	       		});	
+	       		});
 	       }
 	   });
 	   //----Step Action---
@@ -282,25 +291,25 @@ public class CritterGUI extends Application{
 	       public void handle(ActionEvent e) {
 	    	   	controls.setDisable(true);
 	    	   	animeCluster.setDisable(true);
-	       		numberBox.setDisable(false);
-	       		numberBox.setItems(stepOpts);
+	    	   	stepnumBox.setDisable(false);
+	    	   	stepnumBox.setItems(stepOpts);
 	       		//numberBox.getSelectionModel().clearSelection();
-	    		numberBox.setPromptText("Pick/Enter a Number");
-	    		numberBox.getSelectionModel().clearSelection();
-	    		System.out.println(numberBox.getSelectionModel().getSelectedItem());
-	       		numberBox.setOnAction(new EventHandler<ActionEvent>() {
+	    	   	stepnumBox.setPromptText("Pick/Enter a Number");
+	    	   	stepnumBox.getSelectionModel().clearSelection();
+	    		//System.out.println(numberBox.getSelectionModel().getSelectedItem());
+	    		stepnumBox.setOnAction(new EventHandler<ActionEvent>() {
 	       			@Override
 	       			public void handle(ActionEvent l) {
-	       				String numberChosen= numberBox.getSelectionModel().getSelectedItem();
+	       				String numberChosen= stepnumBox.getSelectionModel().getSelectedItem();
 	       				if(numberChosen != null){
 	       					Integer stepnum=Integer.parseInt(numberChosen);
 	       					CritterWorld.runWorld(stepnum);
 	       					Critter.displayWorld();
-	       					//numberBox.setValue(null);
+	       					//stepnumBox.setValue(null);
 	       					statsPrint.setText(runStatsGraphics());
 	       					animeCluster.setDisable(false);
 	       					controls.setDisable(false);
-	       					numberBox.setDisable(true);
+	       					stepnumBox.setDisable(true);
 	       					
 	       				}
 	       			}

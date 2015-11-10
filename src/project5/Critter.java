@@ -371,16 +371,17 @@ public abstract class Critter{
 			//-----Getting x and y positions, width and height using a proportion------//
 			double yPos = y*((CritterGUI.canvas.getHeight())/(Params.world_height));
 			double xPos = x*(CritterGUI.canvas.getWidth()/(Params.world_width*2));
-			double width = (CritterGUI.canvas.getWidth()/(Params.world_width*2));
-			double height = (CritterGUI.canvas.getHeight()/(Params.world_height*2));
+			double width = (CritterGUI.canvas.getWidth()/(Params.world_width*3));
+			double height = (CritterGUI.canvas.getHeight()/(Params.world_height*3));
+			double clearHeight = (CritterGUI.canvas.getHeight()/(Params.world_height*2));
 			
-			gc.clearRect(xPos, yPos, width, height);  //This makes sure shapes wont be drawn on top of each other
+			gc.clearRect(xPos, yPos, width, clearHeight);  //This makes sure shapes wont be drawn on top of each other
 			if(population.get(n).viewShape() == Critter.CritterShape.CIRCLE){
 				gc.fillOval(xPos, yPos, width/2, height); 
 				gc.strokeOval(xPos, yPos, width/2, height); 	 
 			}
 			else if(population.get(n).viewShape() == Critter.CritterShape.SQUARE){
-				gc.clearRect(xPos, yPos, width, height);
+				
 				gc.fillRect(xPos+width/8, yPos+height/8, width-width/4, height-height/4);
 				gc.strokeRect(xPos+width/8, yPos+height/8, width-width/4, height-height/4);
 			

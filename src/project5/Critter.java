@@ -24,8 +24,20 @@ public abstract class Critter{
 	private boolean move_flag;
 	private static java.util.Random rand = new java.util.Random();
 	private static ArrayList<Critter> population=new ArrayList<Critter>();
+	private static ArrayList<Coords> oldPopulation= new ArrayList<Coords>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 	private static boolean fightPhase = false;
+	
+	private static class Coords{
+		int x;
+		int y;
+		
+		Coords(int x, int y){
+			this.x = x;
+			this.y = y;
+		}
+		
+	}
 	
 	public enum CritterShape {
 		CIRCLE,
@@ -62,12 +74,13 @@ public abstract class Critter{
 		on the old position of the critter. If a critter invokes look during its fight method, 
 		then the result of calling look is based on the most current up-to-date information.
 		*/
-		int[] coord=findNewLocation(direction,1);
-		for(int z=0; z<Critter.population.size(); z++){
-			if(Critter.population.get(z).x_coord == coord[0] && Critter.population.get(z).y_coord == coord[1]){
-				return population.get(z).toString();
+		int[] coord= this.findNewLocation(direction,1);
+		for(int z=0; z<Critter.oldPopulation.size(); z++){
+			if(Critter.oldPopulation.get(z).x == coord[0] && Critter.oldPopulation.get(z).y == coord[1]){
+				return oldPopulation.get(z).toString();
 			}
 		}
+		this.energy -= Params.look_energy_cost;
 		return null;
 	}
 	protected String look2(int direction) {
@@ -75,12 +88,13 @@ public abstract class Critter{
 		If a critter invokes look during doTimeStep, then the result of calling look is based 
 		on the old position of the critter. If a critter invokes look during its fight method, 
 		then the result of calling look is based on the most current up-to-date information.*/
-		int[] coord=findNewLocation(direction,2);
-		for(int z=0; z<Critter.population.size(); z++){
-			if(Critter.population.get(z).x_coord == coord[0] && Critter.population.get(z).y_coord == coord[1]){
-				return population.get(z).toString();
+		int[] coord= this.findNewLocation(direction,2);
+		for(int z=0; z<Critter.oldPopulation.size(); z++){
+			if(Critter.oldPopulation.get(z).x == coord[0] && Critter.oldPopulation.get(z).y == coord[1]){
+				return oldPopulation.get(z).toString();
 			}
 		}
+		this.energy -= Params.look_energy_cost;
 		return null;
 	}
 	
@@ -127,7 +141,7 @@ public abstract class Critter{
 	}
 	protected final void walk(int direction) {
 		if(this.move_flag == false){
-			int[] newCoord=findNewLocation(direction,1);
+			int[] newCoord= this.findNewLocation(direction,1);
 			if(Critter.fightPhase){
 				if(!adjacentLocationOccupied(newCoord[0], newCoord[1])){
 					x_coord=newCoord[0];
@@ -151,7 +165,7 @@ public abstract class Critter{
 	}
 	protected final void run(int direction) {
 		if(this.move_flag == false){
-			int[] newCoord=findNewLocation(direction,1);
+			int[] newCoord= this.findNewLocation(direction,1);
 			if(Critter.fightPhase){
 				if(!adjacentLocationOccupied(newCoord[0], newCoord[1])){
 					x_coord=newCoord[0];
@@ -284,6 +298,10 @@ public abstract class Critter{
 	
 
 	public static void worldTimeStep() {
+		Critter.oldPopulation = new ArrayList<Coords>();
+		for(int n=0; n<Critter.population.size(); n++){
+			Critter.oldPopulation.add(new Coords(Critter.population.get(n).x_coord, Critter.population.get(n).y_coord));
+		}
 		for(int x=0; x<Critter.population.size(); x++){
 			Critter.population.get(x).move_flag = false;
 			Critter.population.get(x).energy -= Params.rest_energy_cost;
@@ -298,7 +316,9 @@ public abstract class Critter{
 			newAlgae.x_coord=Critter.getRandomInt(Params.world_width);
     		newAlgae.y_coord=Critter.getRandomInt(Params.world_height);
     		Critter.population.add(newAlgae);
+    		
 		}
+		
 	}
 //------------Critter World Time Step Methods----------	
 	//-------Fighting-------

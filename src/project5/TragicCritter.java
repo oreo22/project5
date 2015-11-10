@@ -7,8 +7,8 @@ public class TragicCritter extends Critter {
 	public String toString() { return "T"; }
 
 	public TragicCritter() {
-		Params.look_energy_cost = 0;
-	/*	Params.walk_energy_cost = 0;
+	/*	Params.look_energy_cost = 0;
+		Params.walk_energy_cost = 0;
 		Params.run_energy_cost = 0;
 		Params.refresh_algae_count = 0;*/
 	}
@@ -17,21 +17,19 @@ public class TragicCritter extends Critter {
 
 	@Override
 	public void doTimeStep() {
-		boolean moveFlag = false;
 		/* Move to where its kin is */
-		if(moveFlag) {
-			for (int dir = 0; dir < 8; dir++) {
-				if(this.look(dir) != null) {
-					walk(dir);
-					return;
-				}
-				if(this.look2(dir) != null) {
-					run(dir);
-					return;
-				}
+		for (int dir = 0; dir < 8; dir++) {
+			if(this.look(dir) != null) {
+				walk(dir);
+				return;
+			}
+			if(this.look2(dir) != null) {
+				run(dir);
+				return;
 			}
 		}
 	}
+
 
 	public static String runStats(java.util.List<Critter> avoidingCritters) {
 		if(avoidingCritters.size() == 2) {

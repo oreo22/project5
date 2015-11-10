@@ -9,6 +9,7 @@ package project5;
  * If Cassidy is in his usual Smash Hours, 10 to 14 and 16 to 20, then he will always fight
  * Otherwise, he is in class and can't fight. If it is an Algae, he can take a snack break during class and eat
  * Stats: The stats tell you what the each Cassidy is doing
+ * Look: If Cassidy is in school, then he'll look before he goes anywhere. He'll only walk somewhere when he sees no one there 
  */
 public class Cassidy extends Critter {
 	private int hours;
@@ -20,7 +21,6 @@ public class Cassidy extends Critter {
 	@Override
 	public void doTimeStep() {
 		hours = (hours+1)%24;
-		System.out.println(hours);
 		walk(hours%8);
 		walk((hours+1)%8);
 		if(hours >= 0 && hours <= 8 && this.getEnergy() > 150){ //sleeping hours
@@ -33,7 +33,14 @@ public class Cassidy extends Critter {
 		if(oponent.equals("project5.Craig")){
 			return false;
 		}
-		else if((hours >=8 && hours<24) || oponent.equals("project5.Algae")){ //smash hours
+		else if((hours >=15 && hours<=16) || (hours >=21 && hours<=23)){
+			for(int x=0; x<8; x++){
+				if(look(x) == null){
+					walk(x);
+				}
+			}
+		}
+		else if((hours >=10 && hours<=14) || (hours >=16 && hours<=20) || oponent.equals("project5.Algae")){ //smash hours
 			return true;
 		}
 		return false;

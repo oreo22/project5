@@ -6,21 +6,28 @@ package project5;
 import project5.Critter.CritterShape;
 
 /*Description: Students are critters that have different characteristics based on their "grade" or energy
- * doTimeStep: Student just walks in a random direction based on its energy. 
- * If they're an A student though, they can reproduce. Cause we need as many A students we can get.
- * Fight: Students can't fight Craig. Otherwise:
+ * doTimeStep: Student just walks and parties if it has a B or higher.
+ * If a Student is below a B, it will either stay in and cry or walk out and party.
+ * If they're a Jon Dahm and are so smart that they have a 150/100, they can reproduce. 
+ * Cause we need as many A++ students we can get.
+ * Fight: Students can't fight Craig, and always run away from Craig when they look into where they are going to step. Otherwise:
  * If they're an A student, they're always fighting everything else besides Craig. 
  * If they're a B student, they fight half the time.
  * If they're a C student, they sometimes take the chance to fight. 
  * Otherwise, they don't fight....well except Algae. They always fight Algae.
+ * Students run away from Chase
  * Stats: The stats tell you how many students of each grade type in the world.
+ * 
  */
 public class Student extends Critter{
 
 	@Override
 	public void doTimeStep() {
 		int roll = Critter.getRandomInt(100);
-		if(this.getEnergy() >= 85){
+		if(look(roll%8) == "C"){
+			run((roll+3)%8); //Run away from chase
+		}
+		else if(this.getEnergy() >= 85){
 			walk(roll%8);
 		}
 		else if(roll>85){
